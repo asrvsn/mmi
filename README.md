@@ -41,6 +41,8 @@ Design notes of the current version (v1; v2 coming soon):
 * **Further firmware updates coming soon.**
 <!-- * Firmware status: the drive (jogging, limit switches, halts), the lights and the lid run by hand: light levels and lid duty are set from the app's calibration pages or the protocol's `light` and `lid` commands. The lid's temperature control (the cascade above) and incubator programs (diurnal cycles on the Teensy's clock) are specified in [`firmware/api.md`](firmware/api.md) (9.3) and [`firmware/hardware.md`](firmware/hardware.md), but not yet implemented. -->
 
+The complete Fusion 360 file of the assembly is [here](mmi.f3d).
+
 # BOM
 
 The complete bill of materials, including:
