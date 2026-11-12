@@ -1,0 +1,2422 @@
+(kicad_symbol_lib
+	(version 20251024)
+	(generator "kicad_symbol_editor")
+	(generator_version "10.0")
+	(symbol "Adafruit_MCP4728_Breakout"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 12.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "Adafruit MCP4728"
+			(at 0 -12.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" "https://learn.adafruit.com/adafruit-mcp4728-i2c-quad-dac"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "Adafruit MCP4728 quad 12-bit I2C DAC breakout (product 4470). Internal 2.048 V reference."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "Adafruit_MCP4728_Breakout_0_1"
+			(rectangle
+				(start -7.62 10.16)
+				(end 7.62 -10.16)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "Adafruit_MCP4728_Breakout_1_1"
+			(pin power_in line
+				(at -10.16 5.08 0)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 -5.08 0)
+				(length 2.54)
+				(name "LDAC"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "LDAC"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin open_collector line
+				(at -10.16 -7.62 0)
+				(length 2.54)
+				(name "RDY"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "RDY"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 -2.54 0)
+				(length 2.54)
+				(name "SCL"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "SCL"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -10.16 0 0)
+				(length 2.54)
+				(name "SDA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "SDA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 5.08 180)
+				(length 2.54)
+				(name "VA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 2.54 180)
+				(length 2.54)
+				(name "VB"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VB"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 0 180)
+				(length 2.54)
+				(name "VC"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VC"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 -2.54 180)
+				(length 2.54)
+				(name "VD"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VD"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -10.16 7.62 0)
+				(length 2.54)
+				(name "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Motoron_M3H550"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 20.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "Motoron M3H550"
+			(at 0 -20.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" "https://www.pololu.com/docs/0J84/4.4"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "Pololu Motoron M3H550 triple brushed-DC motor controller (I2C, 1.8-22 V, 1.7 A/channel). Logic powered from 3V3. VM/VREG/5V pins unused."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "Motoron_M3H550_0_1"
+			(rectangle
+				(start -10.16 15.24)
+				(end 10.16 -15.24)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "Motoron_M3H550_1_1"
+			(pin power_in line
+				(at -12.7 12.7 0)
+				(length 2.54)
+				(name "3V3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3V3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -12.7 -12.7 0)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 5.08 -17.78 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 12.7 180)
+				(length 2.54)
+				(name "M1A"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "M1A"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 10.16 180)
+				(length 2.54)
+				(name "M1B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "M1B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 5.08 180)
+				(length 2.54)
+				(name "M2A"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "M2A"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 2.54 180)
+				(length 2.54)
+				(name "M2B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "M2B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 -2.54 180)
+				(length 2.54)
+				(name "M3A"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "M3A"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 -5.08 180)
+				(length 2.54)
+				(name "M3B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "M3B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -12.7 5.08 0)
+				(length 2.54)
+				(name "SCL"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "SCL"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -12.7 7.62 0)
+				(length 2.54)
+				(name "SDA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "SDA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 5.08 17.78 270)
+				(length 2.54)
+				(name "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Pololu_D24V10F5"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "Pololu D24V10F5"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" "https://www.pololu.com/product/2831"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "Pololu 5 V 1 A step-down regulator D24V10F5 (VIN up to 36 V). EN is pulled up on the module."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "Pololu_D24V10F5_0_1"
+			(rectangle
+				(start -7.62 5.08)
+				(end 7.62 -5.08)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "Pololu_D24V10F5_1_1"
+			(pin input line
+				(at -10.16 -2.54 0)
+				(length 2.54)
+				(name "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_out line
+				(at 10.16 2.54 180)
+				(length 2.54)
+				(name "VOUT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VOUT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Pololu_D30V30F9"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "Pololu D30V30F9"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" "https://www.pololu.com/product/4895"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "Pololu 9 V 2.9 A step-down regulator D30V30F9. EN pulled up on the module; PG is open-drain power-good."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "Pololu_D30V30F9_0_1"
+			(rectangle
+				(start -7.62 5.08)
+				(end 7.62 -5.08)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "Pololu_D30V30F9_1_1"
+			(pin input line
+				(at -10.16 -2.54 0)
+				(length 2.54)
+				(name "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_out line
+				(at 10.16 2.54 180)
+				(length 2.54)
+				(name "VOUT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VOUT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "TMC2209_Module"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 20.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "TMC2209 V1.3"
+			(at 0 -25.4 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2209_datasheet_rev1.09.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "TMC2209 StepStick module (BIGTREETECH-style V1.3), UART mode. Pin names follow the module silkscreen; A1/A2 = coil A (1A/1B), B1/B2 = coil B (2A/2B)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "TMC2209_Module_0_1"
+			(rectangle
+				(start -10.16 15.24)
+				(end 10.16 -20.32)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "TMC2209_Module_1_1"
+			(pin output line
+				(at 12.7 5.08 180)
+				(length 2.54)
+				(name "A1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "A1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 2.54 180)
+				(length 2.54)
+				(name "A2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "A2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 0 180)
+				(length 2.54)
+				(name "B1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "B1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 12.7 -2.54 180)
+				(length 2.54)
+				(name "B2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "B2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -2.54 -22.86 90)
+				(length 2.54)
+				(name "CLK"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "CLK"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -12.7 -10.16 0)
+				(length 2.54)
+				(name "DIAG"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "DIAG"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -12.7 -5.08 0)
+				(length 2.54)
+				(name "DIR"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "DIR"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -12.7 10.16 0)
+				(length 2.54)
+				(name "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 2.54 -22.86 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 5.08 -22.86 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -12.7 -12.7 0)
+				(length 2.54)
+				(name "INDEX"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "INDEX"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -7.62 -22.86 90)
+				(length 2.54)
+				(name "MS1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "MS1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -5.08 -22.86 90)
+				(length 2.54)
+				(name "MS2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "MS2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -12.7 5.08 0)
+				(length 2.54)
+				(name "PDN_UART"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "PDN_UART"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -12.7 -2.54 0)
+				(length 2.54)
+				(name "STEP"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "STEP"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -5.08 17.78 270)
+				(length 2.54)
+				(name "VIO"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VIO"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 5.08 17.78 270)
+				(length 2.54)
+				(name "VM"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VM"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Teensy4.1_StageTop"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 27.94 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "Teensy 4.1"
+			(at 0 -33.02 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.pjrc.com/store/teensy41.html"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Description" "Teensy 4.1 with Ethernet; only the pins the stage-top unit uses (v8: + motor PWM/IPROPI, 9 V enable). VIN 5 V; I/O 3.3 V."
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(symbol "Teensy4.1_StageTop_0_1"
+			(rectangle
+				(start -12.7 25.4)
+				(end 12.7 -30.48)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "Teensy4.1_StageTop_1_1"
+			(pin output line
+				(at -15.24 -7.62 0)
+				(length 2.54)
+				(name "DIM_W"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "23"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 -10.16 0)
+				(length 2.54)
+				(name "DIM_C"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "33"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 -12.7 0)
+				(length 2.54)
+				(name "LED_R"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "10"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 -15.24 0)
+				(length 2.54)
+				(name "LED_G"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "11"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 -17.78 0)
+				(length 2.54)
+				(name "LED_B"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "12"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 17.78 0)
+				(length 2.54)
+				(name "V9_OFF"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "9"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 15.24 0)
+				(length 2.54)
+				(name "MX_IN1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "28"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 12.7 0)
+				(length 2.54)
+				(name "MX_IN2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "29"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -15.24 10.16 0)
+				(length 2.54)
+				(name "MX_I"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "27"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 7.62 0)
+				(length 2.54)
+				(name "MY_IN1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "36"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 5.08 0)
+				(length 2.54)
+				(name "MY_IN2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "37"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -15.24 2.54 0)
+				(length 2.54)
+				(name "MY_I"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "38"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 0 0)
+				(length 2.54)
+				(name "MZ_IN1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "24"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at -15.24 -2.54 0)
+				(length 2.54)
+				(name "MZ_IN2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "25"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -15.24 -5.08 0)
+				(length 2.54)
+				(name "MZ_I"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "26"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -15.24 22.86 0)
+				(length 2.54)
+				(name "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "VIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_out line
+				(at -15.24 -22.86 0)
+				(length 2.54)
+				(name "3V3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3V3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -15.24 -27.94 0)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 22.86 180)
+				(length 2.54)
+				(name "TX1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 20.32 180)
+				(length 2.54)
+				(name "RX1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "0"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 17.78 180)
+				(length 2.54)
+				(name "STEP"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 15.24 180)
+				(length 2.54)
+				(name "DIR"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 12.7 180)
+				(length 2.54)
+				(name "EN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "4"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 10.16 180)
+				(length 2.54)
+				(name "DIAG"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "5"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin bidirectional line
+				(at 15.24 5.08 180)
+				(length 2.54)
+				(name "SDA"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "18"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 2.54 180)
+				(length 2.54)
+				(name "SCL"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "19"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -12.7 180)
+				(length 2.54)
+				(name "LIM_MIN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "6"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -15.24 180)
+				(length 2.54)
+				(name "LIM_MAX"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "7"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -17.78 180)
+				(length 2.54)
+				(name "LIM_X"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "20"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -20.32 180)
+				(length 2.54)
+				(name "LIM_Y"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "21"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -22.86 180)
+				(length 2.54)
+				(name "LIM_Z"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "22"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 7.62 180)
+				(length 2.54)
+				(name "LID_IN1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "14"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin bidirectional line
+				(at 15.24 0 180)
+				(length 2.54)
+				(name "SDA1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "17"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 -2.54 180)
+				(length 2.54)
+				(name "SCL1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "16"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -5.08 180)
+				(length 2.54)
+				(name "LID_SW"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "41"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at 15.24 -7.62 180)
+				(length 2.54)
+				(name "MOT_ON"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "40"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 15.24 -10.16 180)
+				(length 2.54)
+				(name "LID_IN2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "15"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+	)
+	(symbol "MagJack_J1B1211CCD"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 17.78 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "J1B1211CCD"
+			(at 0 -12.7 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Description" "RJ45 MagJack with magnetics and LEDs (Cetus J1B1211CCD / Link-PP LPJ4012AHNL, PJRC Ethernet kit)"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(symbol "MagJack_J1B1211CCD_0_1"
+			(rectangle
+				(start -10.16 15.24)
+				(end 10.16 -10.16)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "MagJack_J1B1211CCD_1_1"
+			(pin passive line
+				(at -12.7 12.7 0)
+				(length 2.54)
+				(name "TD+"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 10.16 0)
+				(length 2.54)
+				(name "TCT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 7.62 0)
+				(length 2.54)
+				(name "TD-"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 5.08 0)
+				(length 2.54)
+				(name "RD+"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "4"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 2.54 0)
+				(length 2.54)
+				(name "RCT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "5"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 0 0)
+				(length 2.54)
+				(name "RD-"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "6"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 -2.54 0)
+				(length 2.54)
+				(name "NC"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "7"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 -5.08 0)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "8"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 12.7 7.62 180)
+				(length 2.54)
+				(name "LED1-"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "9"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 12.7 5.08 180)
+				(length 2.54)
+				(name "LED1+"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "10"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 12.7 0 180)
+				(length 2.54)
+				(name "LED2-"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "11"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 12.7 -2.54 180)
+				(length 2.54)
+				(name "LED2+"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "12"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 12.7 -7.62 180)
+				(length 2.54)
+				(name "SHIELD"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "13"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+	)
+	(symbol "Q_PMOS_GDS"
+		(pin_numbers (hide yes))
+		(pin_names (offset 0) (hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "Q"
+			(at 5.08 1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+				(justify left)
+			)
+		)
+		(property "Value" "Q_PMOS_GDS"
+			(at 5.08 -1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 5.08 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "P-MOSFET, pins numbered for DPAK/TO-252: 1 = G, 2 = D (tab), 3 = S"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "ki_keywords" "PMOS P-MOS"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "Q_PMOS_GDS_0_1"
+			(polyline
+				(pts (xy 0.254 1.905) (xy 0.254 -1.905))
+				(stroke (width 0.254) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts (xy 0.254 0) (xy -2.54 0))
+				(stroke (width 0) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts (xy 0.762 2.286) (xy 0.762 1.27))
+				(stroke (width 0.254) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts
+					(xy 0.762 1.778)
+					(xy 3.302 1.778)
+					(xy 3.302 -1.778)
+					(xy 0.762 -1.778)
+				)
+				(stroke (width 0) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts (xy 0.762 0.508) (xy 0.762 -0.508))
+				(stroke (width 0.254) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts (xy 0.762 -1.27) (xy 0.762 -2.286))
+				(stroke (width 0.254) (type default))
+				(fill (type none))
+			)
+			(circle
+				(center 1.651 0)
+				(radius 2.794)
+				(stroke (width 0.254) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts
+					(xy 2.286 0)
+					(xy 1.27 0.381)
+					(xy 1.27 -0.381)
+					(xy 2.286 0)
+				)
+				(stroke (width 0) (type default))
+				(fill (type outline))
+			)
+			(polyline
+				(pts (xy 2.54 2.54) (xy 2.54 1.778))
+				(stroke (width 0) (type default))
+				(fill (type none))
+			)
+			(circle
+				(center 2.54 1.778)
+				(radius 0.254)
+				(stroke (width 0) (type default))
+				(fill (type outline))
+			)
+			(circle
+				(center 2.54 -1.778)
+				(radius 0.254)
+				(stroke (width 0) (type default))
+				(fill (type outline))
+			)
+			(polyline
+				(pts
+					(xy 2.54 -2.54)
+					(xy 2.54 0)
+					(xy 0.762 0)
+				)
+				(stroke (width 0) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts (xy 2.921 -0.381) (xy 3.683 -0.381))
+				(stroke (width 0) (type default))
+				(fill (type none))
+			)
+			(polyline
+				(pts
+					(xy 3.302 -0.381)
+					(xy 2.921 0.254)
+					(xy 3.683 0.254)
+					(xy 3.302 -0.381)
+				)
+				(stroke (width 0) (type default))
+				(fill (type none))
+			)
+		)
+		(symbol "Q_PMOS_GDS_1_1"
+			(pin passive line
+				(at 2.54 5.08 270)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -5.08 0 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 2.54 -5.08 90)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "DRV8251ADDA"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at -6.35 8.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "DRV8251ADDA"
+			(at 8.89 8.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" "Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias"
+			(at 2.54 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/drv8251a.pdf"
+			(at -6.35 8.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Description" "4.1 A brushed DC motor driver, 4.5-48 V, IPROPI current mirror (1575 uA/A) and VREF current regulation, HSOP-8 PowerPAD"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "ki_keywords" "H-bridge motor driver IPROPI"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "ki_fp_filters" "Texas*HTSOP*1EP*3.9x4.9mm*P1.27mm*EP2.95x4.9mm*Mask2.4x3.1mm*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(symbol "DRV8251ADDA_0_1"
+			(rectangle
+				(start -7.62 7.62)
+				(end 7.62 -7.62)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "DRV8251ADDA_1_1"
+			(pin power_in line
+				(at 0 -10.16 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "7"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "IN2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 5.08 0)
+				(length 2.54)
+				(name "IN1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 -5.08 0)
+				(length 2.54)
+				(name "VREF"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "4"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 10.16 270)
+				(length 2.54)
+				(name "VM"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "5"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 5.08 180)
+				(length 2.54)
+				(name "OUT1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "6"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 10.16 -5.08 180)
+				(length 2.54)
+				(name "IPROPI"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 2.54 180)
+				(length 2.54)
+				(name "OUT2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "8"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -10.16 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "9"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "SMF05C"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "D"
+			(at 0 8.89 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "SMF05C"
+			(at 0 -11.43 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/smf05c-d.pdf"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Description" "5-line TVS / ESD array, 5 V, common anode, SC-88: 1/3/4/5/6 lines, 2 GND"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(symbol "SMF05C_0_1"
+			(rectangle
+				(start -5.08 7.62)
+				(end 5.08 -7.62)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "SMF05C_1_1"
+			(pin passive line
+				(at -7.62 5.08 0)
+				(length 2.54)
+				(name "IO0"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "IO1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 0.0 0)
+				(length 2.54)
+				(name "IO2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "4"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -2.54 0)
+				(length 2.54)
+				(name "IO3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "5"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 2.54)
+				(name "IO4"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "6"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -10.16 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+	)
+	(symbol "TPS7B6933_DBV"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 6.35 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Value" "TPS7B6933"
+			(at 0 -8.89 0)
+			(effects
+				(font (size 1.27 1.27))
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps7b69-q1.pdf"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(property "Description" "150 mA 40 V LDO, 3.3 V, no enable (SOT-23-5: 1 IN, 2 NC, 3 GND, 4 GND, 5 OUT)"
+			(at 0 0 0)
+			(effects
+				(font (size 1.27 1.27))
+				(hide yes)
+			)
+		)
+		(symbol "TPS7B6933_DBV_0_1"
+			(rectangle
+				(start -7.62 3.81)
+				(end 7.62 -5.08)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "TPS7B6933_DBV_1_1"
+			(pin power_in line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "IN"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "1"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin no_connect line
+				(at -10.16 -2.54 0)
+				(length 2.54)
+				(name "NC"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "2"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_in line
+				(at -1.27 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "3"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin passive line
+				(at 1.27 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "4"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+			(pin power_out line
+				(at 10.16 2.54 180)
+				(length 2.54)
+				(name "OUT"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+				(number "5"
+					(effects
+						(font (size 1.27 1.27))
+					)
+				)
+			)
+		)
+	)
+)

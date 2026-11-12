@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmi-client"
+version = "0.5.0"
+description = "Client library for the stage-top micromanipulator-incubator unit (the mmi), with a test server"
+requires-python = ">=3.11"
+dependencies = []                          # the standard library only
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pyyaml>=6"]          # pyyaml: the test server's defaults against the firmware's parameters.yaml
+
+[tool.setuptools.packages.find]
+include = ["mmi_client*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

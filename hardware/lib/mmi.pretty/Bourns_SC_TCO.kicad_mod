@@ -1,0 +1,68 @@
+(footprint "Bourns_SC_TCO"
+	(version 20241229)
+	(generator "mmi_lid_lib")
+	(layer "F.Cu")
+	(descr "Bourns SC series breaker (surface-mount thermal cutoff, a bimetal with a self-hold PTC), e.g. SC72AAB: opens at 72 +-5 C, resets once 10 C below its minimum trip and unpowered. Body 4.4-4.7 x 2.8 mm, 0.94 mm (SCxxAAB) / 1.07 mm (SCxxAAA) tall; four bottom terminals: pads 1 = arm terminals, pads 2 = base terminals. Land pattern per the Bourns SC datasheet: 0.7 x 0.7 mm pads on 3.42 x 2.3 mm centres. Reflow (up to 3 passes, <= 260 C) or hand soldering; not flow soldering. (lid_2, 2026-10-08)")
+	(tags "thermal cutoff TCO mini-breaker bimetal Bourns SC72AAB")
+	(property "Reference" "REF**"
+		(at 0 -2.6 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(property "Value" "SC72AAB"
+		(at 0 2.6 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(attr smd)
+	(pad "1" smd rect
+		(at -1.71 -1.15)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+	)
+	(pad "1" smd rect
+		(at -1.71 1.15)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+	)
+	(pad "2" smd rect
+		(at 1.71 -1.15)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+	)
+	(pad "2" smd rect
+		(at 1.71 1.15)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+	)
+	(fp_rect
+		(start -2.35 -1.4)
+		(end 2.35 1.4)
+		(stroke (width 0.1) (type solid))
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -1.15 -1.75)
+		(end 1.15 -1.75)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start -1.15 1.75)
+		(end 1.15 1.75)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+	)
+	(fp_rect
+		(start -2.6 -1.75)
+		(end 2.6 1.75)
+		(stroke (width 0.05) (type solid))
+		(fill no)
+		(layer "F.CrtYd")
+	)
+)

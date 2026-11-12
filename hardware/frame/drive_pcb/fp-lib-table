@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "mmi")(type "KiCad")(uri "${KIPRJMOD}/../../lib/mmi.pretty")(options "")(descr "mmi project footprints"))
+)

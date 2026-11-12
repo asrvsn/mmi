@@ -1,0 +1,84 @@
+(footprint "Pololu_D24V10Fx"
+	(version 20241229)
+	(generator "mmi_build_lib")
+	(layer "F.Cu")
+	(descr "Pololu D24V10Fx step-down regulator (12.7 x 17.8 mm) in 8.5 mm female header sockets")
+	(attr through_hole)
+	(property "Reference" "REF**"
+		(at 0.000 -10.090 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(property "Value" "Pololu_D24V10Fx"
+		(at 0.000 10.090 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(pad "PG" thru_hole circle
+		(at -5.080 7.620)
+		(size 1.7 1.7)
+		(drill 1.0)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "EN" thru_hole circle
+		(at -2.540 7.620)
+		(size 1.7 1.7)
+		(drill 1.0)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "VIN" thru_hole circle
+		(at 0.000 7.620)
+		(size 1.7 1.7)
+		(drill 1.0)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "GND" thru_hole circle
+		(at 2.540 7.620)
+		(size 1.7 1.7)
+		(drill 1.0)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "VOUT" thru_hole circle
+		(at 5.080 7.620)
+		(size 1.7 1.7)
+		(drill 1.0)
+		(layers "*.Cu" "*.Mask")
+	)
+	(fp_rect
+		(start -6.350 -8.890)
+		(end 6.350 8.890)
+		(stroke (width 0.1) (type solid))
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_rect
+		(start -6.450 -8.990)
+		(end 6.450 8.990)
+		(stroke (width 0.12) (type solid))
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_rect
+		(start -6.450 6.250)
+		(end 6.450 8.990)
+		(stroke (width 0.05) (type solid))
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(fp_text user "SHDN=EN"
+		(at 0.000 5.690 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 0.6 0.6) (thickness 0.12))
+		)
+	)
+	(model "${KIPRJMOD}/../../lib/3d/d24v10fx_direct.step"
+		(offset (xyz -6.35 -8.89 0))
+		(scale (xyz 1 1 1))
+		(rotate (xyz 0 0 0))
+	)
+)

@@ -1,0 +1,46 @@
+# mmi_app settings (python -m mmi_app --config this.toml). Every key is optional; these are the defaults.
+
+[unit]
+host = "192.168.50.2"
+port = 5000
+drive_hz = 5          # how often the unit sends the drive record
+env_hz = 2            # ... and the light record, for the plots (the lid's comes by itself, once a second)
+
+[gamepad]             # the 8BitDo Ultimate 2C or a PS5 DualSense, the pads the app takes (profiles.py)
+poll_hz = 100         # how often the controls are read
+deadman = 0.25        # s: if the window stalls this long mid-move, the client halts the unit
+
+[keyboard]            # when the pad isn't attached. Arrows: fine x and y; W/S: fine z; A/D: the rail; Space: halt;
+                      # Esc: menu (in it: back); Enter: into a menu item, where the arrows choose and set (Shift:
+                      # coarse). With the pad attached, the keyboard does nothing.
+slow = 0.5            # a key's deflection, as a fraction of a stick's throw (half: ~18 um/s fine, ~270 um/s rail)
+fast = 1.0            # ... with Shift held (full speed)
+
+# Speed maps: nothing inside the deadband, v_min just past it, rising exponentially to v_max at full deflection.
+# v_max is also capped at the unit's own x/y/z/r.vmax (read with `get` on connecting).
+[xy]                  # right stick: fine x and y, each on its own (one never changes the other's speed)
+deadband = 0.08
+v_min = 2.0           # um/s
+v_max = 250.0
+
+[z]                   # left stick, vertical: fine z, up = +z
+deadband = 0.08
+v_min = 2.0
+v_max = 250.0
+
+[r]                   # triggers: the rail, left -x, right +x
+deadband = 0.05
+v_min = 20.0
+v_max = 5000.0
+
+[view]                # so the tip follows the stick on screen: set by jogging +x and +y and watching the image
+rotation = 0          # 0, 90, 180, 270 degrees
+mirror = false
+
+[screen]
+width = 800           # the window's size (the HyperPixel's landscape)
+height = 480
+fullscreen = false
+
+[plots]
+window_s = 600        # how much history the plots show

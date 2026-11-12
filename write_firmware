@@ -1,0 +1,244 @@
+#!/usr/bin/env bash
+# Writes the stage firmware (firmware/stage) onto the Teensy 4.1 over USB, then checks it answers. On a Mac or Linux
+# (the Pi included), from mmi/:
+#
+#   ./write_firmware
+#
+#   1. The SD card: if the Teensy's microSD is in this computer (an SD slot, an adapter or a card reader), offers to
+#      copy firmware/sd/parameters.yaml onto it (showing the differences first if it holds another one), then ejects
+#      it to go back in the Teensy. The Teensy can't write its own card over USB. The file is optional: without it
+#      the firmware runs the same values, built in.
+#   2. Builds firmware/stage with the Teensy core's "Faster" options (the "Nano" ones drop %f from printf).
+#   3. Waits for a Teensy on USB and uploads; the Teensy Loader's window may appear. If the program on it ignores
+#      USB's request to enter program mode (a new Teensy's, say), it retries for a minute while you press its button.
+#   4. Opens its USB serial port: its !hello must name the firmware just built, and says what the SD card held.
+#
+# The Teensy: off the main board, or in it with SW9 OFF (in the enclosure, lift the board out of its tray first: the
+# Teensy's USB and microSD face the tray's floor). Until its VUSB-VIN pads are cut and bridged by a Schottky, unplug USB
+# before SW9 goes on: with them joined, the board's 5 V reaches the computer's USB port.
+# Needs arduino-cli (on PATH, or inside the Arduino IDE 2; or set ARDUINO_CLI) with PJRC's Teensy core and QNEthernet
+# (firmware/README.md, "Building and flashing"). On Linux, also PJRC's udev rules (00-teensy.rules), and the serial
+# port's group (dialout, usually) for the check.
+set -euo pipefail
+
+HERE=$(cd "$(dirname "$0")" && pwd)
+SKETCH="$HERE/firmware/stage"
+YAML="$HERE/firmware/sd/parameters.yaml"
+FQBN="teensy:avr:teensy41:usb=serial,speed=600,opt=o2std,keys=en-us"   # Teensy 4.1, USB Serial, 600 MHz, Faster
+BUILD="${TMPDIR:-/tmp}/mmi_stage_build"
+FW=$(sed -n 's/.*const char\* const FW = "\(.*\)";.*/\1/p' "$SKETCH/net.cpp")
+API=$(sed -n 's/.*const char\* const API = "\(.*\)";.*/\1/p' "$SKETCH/net.cpp")
+OS=$(uname -s)   # Darwin or Linux
+
+die() { echo "write_firmware: $*" >&2; exit 1; }
+ask() { local a; read -r -p "$1 [y/N] " a; [[ "$a" =~ ^[Yy] ]]; }
+case "$OS" in Darwin | Linux) ;; *) die "a Mac or Linux only, not $OS" ;; esac
+
+python_for_checks() {   # the mmi conda env's (env.yml), else any python3
+  local base
+  for base in "${CONDA_EXE:+$(dirname "$(dirname "$CONDA_EXE")")}" "$HOME/miniforge3" "$HOME/mambaforge" \
+              "$HOME/miniconda3" "$HOME/anaconda3" /opt/homebrew/Caskroom/miniforge/base /opt/conda; do
+    if [ -n "$base" ] && [ -x "$base/envs/mmi/bin/python" ]; then echo "$base/envs/mmi/bin/python"; return; fi
+  done
+  command -v python3 || true
+}
+
+find_cli() {   # arduino-cli: $ARDUINO_CLI, PATH, or the one inside the Arduino IDE 2 (a Mac's app, Linux's folder)
+  local c
+  for c in "${ARDUINO_CLI:-}" "$(command -v arduino-cli || true)" \
+           "/Applications/Arduino IDE.app/Contents/Resources/app/lib/backend/resources/arduino-cli" \
+           "$HOME"/arduino-ide*/resources/app/lib/backend/resources/arduino-cli \
+           /opt/arduino-ide*/resources/app/lib/backend/resources/arduino-cli \
+           /usr/share/arduino-ide/resources/app/lib/backend/resources/arduino-cli; do
+    if [ -n "$c" ] && [ -x "$c" ]; then echo "$c"; return; fi
+  done
+  return 1
+}
+
+# The SD cards in this computer: mounted FAT / exFAT volumes on an SD card or other removable media, one a line as
+# "<mount point><TAB><device>"; card_size gives one's size in bytes, and eject_card ejects it.
+if [ "$OS" = Darwin ]; then
+  key() { plutil -extract "$1" raw -o - - <<<"$2" 2>/dev/null || true; }   # one key of a diskutil plist
+  sd_cards() {
+    local v info fs
+    for v in /Volumes/*; do
+      info=$(diskutil info -plist "$v" 2>/dev/null) || continue
+      fs=$(key FilesystemType "$info")
+      [[ "$fs" == msdos || "$fs" == exfat ]] || continue
+      if [[ "$(key BusProtocol "$info")" == "Secure Digital" ||
+            ( "$(key Internal "$info")" == false && "$(key RemovableMedia "$info")" == true ) ]]; then
+        printf '%s\t%s\n' "$v" "$(key DeviceNode "$info")"
+      fi
+    done
+  }
+  card_size() { key TotalSize "$(diskutil info -plist "$1")"; }
+  eject_card() { diskutil eject "$1" >/dev/null; }
+else
+  sd_cards() {   # lsblk's raw output escapes a mount point's spaces as \x20
+    command -v lsblk >/dev/null || return 0
+    lsblk -nrpo NAME,RM,HOTPLUG,FSTYPE,MOUNTPOINT | while read -r name rm hot fs mnt; do
+      [ -n "${mnt:-}" ] && [[ "$fs" == vfat || "$fs" == exfat ]] && [[ "$rm" == 1 || "$hot" == 1 ]] || continue
+      printf '%b\t%s\n' "$mnt" "$name"
+    done
+  }
+  card_size() { lsblk -nbdo SIZE "$(findmnt -nro SOURCE --target "$1")" 2>/dev/null || echo 0; }
+  eject_card() {   # unmount, then power the reader's slot down if udisks can; else plain umount
+    local dev
+    dev=$(findmnt -nro SOURCE --target "$1")
+    if command -v udisksctl >/dev/null; then
+      udisksctl unmount -b "$dev" >/dev/null && { udisksctl power-off -b "$dev" >/dev/null 2>&1 || true; }
+    else
+      umount "$1"
+    fi
+  }
+fi
+
+# ---- the tools
+CLI=$(find_cli) || die "no arduino-cli: install the Arduino IDE 2, or arduino-cli, or set ARDUINO_CLI (firmware/README.md, \"Building and flashing\")"
+"$CLI" core list 2>/dev/null | grep -q '^teensy:avr ' ||
+  die "no Teensy core: \"$CLI\" core install teensy:avr --additional-urls https://www.pjrc.com/teensy/package_teensy_index.json"
+"$CLI" lib list 2>/dev/null | grep -q '^QNEthernet ' || die "no QNEthernet: \"$CLI\" lib install QNEthernet"
+
+# ---- 1. the SD card, if it's in this computer
+cards=()
+while IFS= read -r v; do cards+=("$v"); done < <(sd_cards)
+if [ ${#cards[@]} -eq 0 ]; then
+  echo "SD card: none in this computer, so the Teensy's card stays as it is (the check at the end says what it holds)."
+fi
+for c in ${cards[@]+"${cards[@]}"}; do
+  v=${c%%$'\t'*}
+  size=$(card_size "$v")
+  echo "SD card: \"$(basename "$v")\", $(( ${size:-0} / 1000000000 )) GB, at $v"
+  if [ -f "$v/parameters.yaml" ] && cmp -s "$YAML" "$v/parameters.yaml"; then
+    echo "  its parameters.yaml is firmware/sd/parameters.yaml already"
+  else
+    if [ -f "$v/parameters.yaml" ]; then
+      echo "  it holds another parameters.yaml (- the card's, + the repo's):"
+      diff -u "$v/parameters.yaml" "$YAML" | sed 's/^/    /' || true
+      ask "  Replace it with the repo's?" || continue
+    else
+      ask "  Copy firmware/sd/parameters.yaml onto it?" || continue
+    fi
+    cp "$YAML" "$v/parameters.yaml"
+    sync
+    echo "  copied"
+  fi
+  if ask "  Eject it, to put it back in the Teensy?"; then
+    eject_card "$v" || die "couldn't eject $v: eject it by hand"
+    read -r -p "  Ejected. Put it back in the Teensy's slot (USB unplugged), then press Enter. " _
+  fi
+done
+
+# ---- 2. build
+echo "Building firmware/stage: fw $FW, api $API"
+"$CLI" compile --fqbn "$FQBN" --build-path "$BUILD" "$SKETCH"
+
+# ---- 3. upload
+teensy_port() { "$CLI" board list 2>/dev/null | awk '$2 == "teensy" { print $1; exit }'; }
+wait_port() { port=$(teensy_port); while [ -z "$port" ]; do sleep 1; port=$(teensy_port); done; }
+port=$(teensy_port)
+if [ -z "$port" ]; then
+  echo "Waiting for the Teensy on USB. Plugged in and still not found after a few seconds? Press its button once."
+  [ "$OS" = Linux ] && echo "(On Linux it needs PJRC's udev rules, 00-teensy.rules, to be seen at all.)"
+  wait_port
+fi
+echo "Uploading to the Teensy at $port"
+tries=0
+# a program that ignores USB's request to enter program mode (a new Teensy's, say) needs the button: retried ~1 min
+until "$CLI" upload --fqbn "$FQBN" --input-dir "$BUILD" -p "$port" -l teensy "$SKETCH"; do
+  tries=$((tries + 1))
+  [ "$tries" -lt 20 ] || die "the upload didn't go through: press the Teensy's button once, then run this again"
+  echo "Press the Teensy's button once, briefly: the upload then goes ahead."
+  sleep 3
+  wait_port
+done
+
+# ---- 4. check: its USB session's !hello (opening the port raises DTR, which opens a session)
+PY=$(python_for_checks)
+[ -n "$PY" ] || { echo "No python3 to check with: open the Teensy's serial port and look for !hello fw=$FW."; exit 0; }
+echo "Checking the Teensy over USB serial"
+"$PY" - "$FW" "$API" <<'EOF'
+import glob, os, select, sys, termios, time
+
+fw, api = sys.argv[1], sys.argv[2]
+PORTS = ("/dev/cu.usbmodem*", "/dev/ttyACM*")   # a Mac's, Linux's
+denied = set()
+
+
+def session(dev, secs=4.0):
+    """The lines a session on `dev` sends: its !hello and state, then the reply to a ping."""
+    try:
+        fd = os.open(dev, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
+    except PermissionError:
+        denied.add(dev)
+        return []
+    except OSError:
+        return []
+    try:
+        a = termios.tcgetattr(fd)
+        a[0] = a[1] = a[3] = 0                     # raw: no processing either way, no echo, not line by line
+        a[2] |= termios.CLOCAL | termios.CREAD
+        termios.tcsetattr(fd, termios.TCSANOW, a)
+        lines, buf, pinged, start = [], b"", False, time.monotonic()
+        while time.monotonic() - start < secs:
+            if select.select([fd], [], [], 0.1)[0]:
+                try:
+                    buf += os.read(fd, 4096)
+                except OSError:
+                    pass
+                *done, buf = buf.split(b"\n")
+                lines += [x.decode("ascii", "replace").rstrip("\r") for x in done]
+            if not pinged and (any(x.startswith("!hello") for x in lines) or time.monotonic() - start > secs / 2):
+                os.write(fd, b"1 ping\n")
+                pinged = True
+            if any(x.startswith("@1 ") for x in lines):
+                break
+        return lines
+    finally:
+        os.close(fd)
+
+
+lines, dev, end = [], None, time.monotonic() + 20   # it restarts after the upload: ~0.3 s, then USB comes up
+while not lines and time.monotonic() < end:
+    for d in sorted(p for pattern in PORTS for p in glob.glob(pattern)):
+        got = session(d)
+        if any(x.startswith(("!hello", "@1 ")) for x in got):
+            lines, dev = got, d
+            break
+    else:
+        time.sleep(0.5)
+if not lines:
+    if denied:
+        sys.exit(f"Not allowed to open {', '.join(sorted(denied))}: add yourself to its group (ls -l shows it; dialout, "
+                 "usually), log in again, and run this again")
+    sys.exit("No answer on a USB serial port within 20 s: did the upload run (the Teensy Loader's window)?")
+
+hello = next((x for x in lines if x.startswith("!hello")), None)
+if hello is None:
+    print(f"{dev}: it answers ping, but its !hello went elsewhere (another program has the port open?)")
+else:
+    kv = dict(w.split("=", 1) for w in hello.split()[1:] if "=" in w)
+    print(f"{dev}: {hello}")
+    if (kv.get("fw"), kv.get("api")) != (fw, api):
+        sys.exit(f"  It runs fw {kv.get('fw')}, api {kv.get('api')}: not fw {fw}, api {api} as just built. "
+                 "The upload didn't take?")
+    print(f"  fw {fw}, api {api}: the firmware just built")
+    print("  The SD card:", {
+        "card": "its /parameters.yaml was read and used",
+        "default": "a card, but no usable /parameters.yaml (the !cfg line below says why): the built-in values run, "
+                   "the same as firmware/sd/parameters.yaml",
+        "nocard": "none found: the built-in values run, the same as firmware/sd/parameters.yaml",
+    }.get(kv.get("cfg", ""), f"cfg={kv.get('cfg')}"))
+for x in lines:
+    if x.startswith("!cfg"):
+        print("  " + x)
+print("  ping:", "answered" if any(x.startswith("@1 ok") for x in lines) else "no answer")
+faults = [x for x in lines if x.startswith("!fault")]
+if faults:
+    print("  Off the main board its switch and MOTORS pins float, so these mean nothing; in it they're real:")
+    for x in faults:
+        print("    " + x)
+EOF
+echo "Done. Unplug USB (before SW9 goes on, while the Teensy's VUSB-VIN pads are still joined). A Teensy off the"
+echo "board goes in now: MCU away from the board, USB at the front end, VIN on (16.4, 1.3); the Ethernet kit's cable"
+echo "onto J23, dot to dot."

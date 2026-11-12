@@ -1,0 +1,56 @@
+mmi
+Copyright (c) 2026 the authors
+
+Everything in this repository is licensed under the MIT License (see LICENSE): software, firmware, board designs,
+3D models, drawings, documentation and images, with the exceptions below. Paths are relative to the root of this
+repository.
+
+
+Third-party 3D models (not covered by the MIT License)
+------------------------------------------------------
+
+These models were downloaded from the GrabCAD Community Library. They remain the work of their authors and are
+subject to GrabCAD's terms of use (https://grabcad.com/terms). They are included for illustration and fit checks
+only (possibly repositioned, recoloured or simplified); none is needed to build the device. Before reusing or
+redistributing the files that contain them, check those terms, or replace the models.
+
+- "Teensy 4.1 Development Board" by Karim Korish
+  https://grabcad.com/library/teensy-4-1-development-board-1
+  in: hardware/lib/3d/Teensy41.step, hardware/frame/main_pcb/main.step (the board's 3D export), mmi.f3d
+
+- "T25 Cell Culture Flask" by Tom Massare
+  https://grabcad.com/library/t25-cell-culture-flask-1
+  in: mmi.f3d (manual_syringe_assembly)
+
+- "Medical Stopcock, 3 way" by Jerry Donnan
+  https://grabcad.com/library/medical-stopcock-3-way
+  in: mmi.f3d (manual_syringe_assembly)
+
+The renders in this repository show these models; the renders themselves are the authors' work.
+
+
+KiCad library material (CC-BY-SA 4.0)
+-------------------------------------
+
+These footprints and this symbol are adapted from the KiCad libraries and are licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International license (https://creativecommons.org/licenses/by-sa/4.0/) with the KiCad
+libraries exception (https://www.kicad.org/libraries/license/), not under the MIT License:
+
+- hardware/lib/mmi.pretty: IDC-Header_2x07_P2.54mm_Horizontal, JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical_TightCourtyard,
+  JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical_TightCourtyard, R_0603_1608Metric_Jumper, R_1206_3216Metric_Jumper,
+  Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_NoVias
+- hardware/lib/mmi.kicad_sym: Q_PMOS_GDS
+
+The board designs and the files generated from them (Gerbers, drill and placement files, the boards' 3D exports,
+renders) use KiCad library footprints, symbols and 3D models; under the KiCad libraries exception they are covered
+by the MIT License here.
+
+
+Trademarks
+----------
+
+Product and company names (for example ZEISS, Märzhäuser, PJRC/Teensy, INJORA, Hamilton, Optics-Focus, Omron,
+C&K, JST, Würth Elektronik, Formlabs) are used only to identify compatible or purchased parts and are trademarks of
+their respective owners. This project is not affiliated with or endorsed by them. The models of such parts in this
+repository (the inverted microscope and its Z-piezo stage, the translation stages, servos, switches, connectors and
+Luer couplings) are the authors' own simplified models, drawn from public datasheets, standards and measurements.

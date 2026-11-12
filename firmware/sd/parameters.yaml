@@ -1,0 +1,98 @@
+# /parameters.yaml on the Teensy's SD card: the unit's parameters, read at start-up (firmware/parameters.md).
+# Every key is optional: one that's missing, or out of its bounds, keeps the built-in default, and !hello's !cfg
+# lines say so. These values are the built-in defaults: the precomputed model, before any calibration.
+format: 1
+unit: unset              # this unit's name, shown in !hello
+
+fine:                    # shared by x, y and z: INJS11 gearmotors on the head's DRV8251A drivers
+  pwm_hz: 40000          # drive/brake PWM
+  stall_i: 0.70          # A: a stall is the filtered current above this (at most 0.70: a held stall reads 0.76+)...
+  stall_k: 0.6           # ...or above stall_k x duty x 9.16 V / r_m (part-duty stalls; at most 0.75)
+  stall_floor: 0.30      # A: never chased below this; a stall under it stays thermally harmless
+  stall_ms: 50           # for this long (at most 80, so the stop lands inside 0.1 s)
+  inrush_ms: 30          # not checked this long after a start or a reversal
+  vunk: 20               # um/s while a switch is open and which end it is is unknown
+  cal_ratio: 2.0         # a calibration must stay within x/÷ this of the model, or the model runs instead
+
+# The frame is the operator's view (api.md 6.2): +x right, towards the rail's bearing end; +y away from the operator;
+# +z up.
+x:
+  sign: 1                # 1 or -1: the motor direction that moves the stage towards +x (commissioning)
+  vmax: 250              # um/s: the jog clamp
+  acc: 2000              # um/s^2 speeding up
+  dec: 4000              # um/s^2 slowing down
+  duty_max: 0.92         # the duty cap (at most 0.92)
+  duty_min: 0            # below this duty, pulse mode (not built yet: the axis doesn't move); 0 = steady PWM always
+  r_m: 3.5               # ohm: the winding, for the duty-aware stall test (measure at commissioning)
+  model:                 # precomputed: speed in um/s at each duty (INJS11 0.074 s/60 deg at 8.4 V, 16:30, M6x0.25)
+    duty: [0.038, 0.92]
+    speed: [0, 289]
+  cal:                   # in use: starts as a copy of the model; a calibration rewrites this block
+    source: model
+    fwd:                 # towards +x
+      duty: [0.038, 0.92]
+      speed: [0, 289]
+    rev:                 # towards -x
+      duty: [0.038, 0.92]
+      speed: [0, 289]
+
+y:
+  sign: 1
+  vmax: 250
+  acc: 2000
+  dec: 4000
+  duty_max: 0.92
+  duty_min: 0
+  r_m: 3.5
+  model:
+    duty: [0.038, 0.92]
+    speed: [0, 289]
+  cal:
+    source: model
+    fwd:
+      duty: [0.038, 0.92]
+      speed: [0, 289]
+    rev:
+      duty: [0.038, 0.92]
+      speed: [0, 289]
+
+z:
+  sign: 1
+  vmax: 250
+  acc: 2000
+  dec: 4000
+  duty_max: 0.92
+  duty_min: 0
+  r_m: 3.5
+  model:
+    duty: [0.038, 0.92]
+    speed: [0, 289]
+  cal:
+    source: model
+    fwd:
+      duty: [0.038, 0.92]
+      speed: [0, 289]
+    rev:
+      duty: [0.038, 0.92]
+      speed: [0, 289]
+
+r:                       # the rail: NEMA11 on a T6x1 leadscrew, TMC2209
+  sign: 1                # 1: DIR high moves the carriage towards +x, as the stepper tester's "fwd" (to confirm once)
+  vmax: 5000             # um/s
+  acc: 20000             # um/s^2
+  dec: 20000
+  lead: 1000             # um per motor turn (T6x1)
+  steps: 200             # full steps per turn (1.8 deg)
+  microsteps: 16         # per full step on STEP; the driver interpolates to 256
+  irun: 18               # run current, 0-28: (irun+1)/32 x 0.657 A rms = 0.39 A
+  detent_phase: 128      # MSCNT (mod 256) where the unpowered rotor rests: 128 per the datasheet, or 0 (commissioning)
+  effector: min          # the rail switch on the effector (MIN, J7, the motor end): it stops -x on fine x as well
+  release: 2000          # um: a switch still open this far after the rail moved away from it is a sign or wiring fault
+
+jog:
+  lease: 250             # ms a jog holds before falling to 0
+
+lid:                     # the Peltier string by hand (api.md 9.2)
+  duty_max: 50           # %: the cap on `lid duty=`, either way (at most 80): ~60 C on the board at worst, uncovered
+  medium_max: 40         # C: a medium probe at this cuts the duty, either way, and refuses another (10-50)
+  sign: 1                # 1: IN1 heats the chamber side, so + is heat; -1 if it cools (commissioning: warms board.a/b)

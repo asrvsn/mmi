@@ -1,0 +1,113 @@
+(footprint "LED_RGB_SideView_XL-3210RGBC"
+	(version 20241229)
+	(generator "mmi_edge_led")
+	(layer "F.Cu")
+	(descr "Side-view RGB LED 3.2 x 1.0 x 1.5 mm, common anode, XINGLIGHT XL-3210RGBC-YG (C965884); lens emits towards -y; pads as Device:LED_RAGB: 1 R- (datasheet 1), 3 G- (2), 4 B- (3), 2 A (4)")
+	(attr smd)
+	(property "Reference" "REF**"
+		(at 0 1.6 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 0.8 0.8) (thickness 0.12))
+		)
+	)
+	(property "Value" "LED_RGB_SideView_XL-3210RGBC"
+		(at 0 2.6 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 0.5 0.5) (thickness 0.08))
+		)
+	)
+	(fp_rect
+		(start -1.600 -0.420)
+		(end 1.600 0.060)
+		(stroke (width 0.1) (type solid))
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_rect
+		(start -1.100 -1.500)
+		(end 1.100 -0.420)
+		(stroke (width 0.1) (type solid))
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_rect
+		(start -2.250 -1.750)
+		(end 2.250 0.760)
+		(stroke (width 0.05) (type solid))
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -2.200 0.720)
+		(end 2.200 0.720)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 0.000 -1.600)
+		(end -0.350 -1.250)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 0.000 -1.600)
+		(end 0.350 -1.250)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+	)
+	(pad "1" smd rect
+		(at -1.500 0.030)
+		(size 1.0 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(pad "3" smd rect
+		(at -0.375 0.230)
+		(size 0.45 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(pad "4" smd rect
+		(at 0.375 0.230)
+		(size 0.45 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(pad "2" smd rect
+		(at 1.500 0.030)
+		(size 1.0 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(fp_text user "R"
+		(at -1.500 1.150 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 0.4 0.4) (thickness 0.08))
+		)
+	)
+	(fp_text user "A"
+		(at 1.500 1.150 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 0.4 0.4) (thickness 0.08))
+		)
+	)
+	(fp_text user "1"
+		(at -1.500 1.200 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 0.7 0.7) (thickness 0.12))
+		)
+	)
+	(fp_text user "+"
+		(at 1.500 1.200 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 0.7 0.7) (thickness 0.12))
+		)
+	)
+	(model "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_XINGLIGHT_1204_3210Metric_SideView.step"
+		(offset (xyz 0 0 0))
+		(scale (xyz 1 1 1))
+		(rotate (xyz 0 0 0))
+	)
+)

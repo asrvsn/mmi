@@ -1,0 +1,40 @@
+(footprint "SolderPads_1x02_P2.0mm_Hand"
+	(version 20241229)
+	(generator "mmi_lid_lib")
+	(layer "F.Cu")
+	(descr "2 SMD wire pads, 2.0 mm pitch (NTC probe leads) Hand-soldered variant (lid_2, 2026-10-08): no stencil paste on the hand-soldered pads, which keep other copper 0.45 mm off (so traces near them stay under a wide mask dam).")
+	(attr smd)
+	(property "Reference" "REF**"
+		(at 0.000 -2.200 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(property "Value" "SolderPads_1x02_P2.0mm"
+		(at 0.000 2.200 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(pad "1" smd rect
+		(at -1.000 0.000)
+		(size 1.2 2.2)
+		(layers "F.Cu" "F.Mask")
+		(clearance 0.45)
+	)
+	(pad "2" smd rect
+		(at 1.000 0.000)
+		(size 1.2 2.2)
+		(layers "F.Cu" "F.Mask")
+		(clearance 0.45)
+	)
+	(fp_rect
+		(start -1.900 -1.400)
+		(end 1.900 1.400)
+		(stroke (width 0.05) (type solid))
+		(fill no)
+		(layer "F.CrtYd")
+	)
+)

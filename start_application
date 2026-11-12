@@ -1,0 +1,228 @@
+#!/usr/bin/env bash
+# Starts the operator's app (mmi_app) on this computer, talking to the unit over wired Ethernet: a Mac or Linux (the
+# Pi included). From mmi/:
+#
+#   ./start_application [the app's arguments: -v, --fullscreen, --config my.toml]
+#   ./start_application 127.0.0.1         # the test server on this computer (python -m mmi_client.test_server)
+#
+# Given an address that isn't the unit's (192.168.50.2), it skips steps 1-2 and the ping: it waits for something to
+# answer there, then starts the app on it.
+#
+#   1. Finds the wired Ethernet interface (a USB adapter, or the computer's own port), and waits for its link: the
+#      cable from it into the unit's J19, and the unit on (SW9).
+#   2. Gives it 192.168.50.1/24 (the unit is 192.168.50.2: firmware/api.md), unless it has an address on that subnet
+#      already (on the Pi, its saved connection: app/README.md). This address is temporary, with no router, so the
+#      internet stays on Wi-Fi. It needs admin rights: sudo's prompt in a terminal, else the desktop's own dialog
+#      (osascript on a Mac, pkexec on Linux).
+#      - A Mac: `ipconfig set`, until the adapter is unplugged or the Mac restarts; the saved settings are left alone.
+#        Undo it now: sudo ipconfig set <device> DHCP.
+#      - Linux: `ip addr add`, until the interface goes down or a reboot. Undo it now:
+#        sudo ip addr del 192.168.50.1/24 dev <device>.
+#   3. Waits for the unit to answer, checks that a connection gets through (a Mac's Local Network permission), says
+#      which gamepad the app will take, and starts `python -m mmi_app` from the mmi conda env (env.yml), unless it's
+#      open already. That check is one brief session: like the app's own, it replaces any other client connected to
+#      the unit.
+set -euo pipefail
+
+UNIT=192.168.50.2 UNIT_PORT=5000 ME=192.168.50.1 PREFIX=24 MASK=255.255.255.0
+OS=$(uname -s)   # Darwin or Linux
+
+die() { echo "start_application: $*" >&2; exit 1; }
+said=""
+say() { if [ "$1" != "$said" ]; then echo "$1"; said=$1; fi; }   # a waiting message, once until it changes
+case "$OS" in Darwin | Linux) ;; *) die "a Mac or Linux only, not $OS" ;; esac
+
+mmi_python() {   # the mmi conda env's python
+  local base
+  if [ "${CONDA_DEFAULT_ENV:-}" = mmi ] && [ -x "${CONDA_PREFIX:-}/bin/python" ]; then echo "$CONDA_PREFIX/bin/python"; return; fi
+  for base in "${CONDA_EXE:+$(dirname "$(dirname "$CONDA_EXE")")}" "$HOME/miniforge3" "$HOME/mambaforge" \
+              "$HOME/miniconda3" "$HOME/anaconda3" /opt/homebrew/Caskroom/miniforge/base /opt/conda; do
+    if [ -n "$base" ] && [ -x "$base/envs/mmi/bin/python" ]; then echo "$base/envs/mmi/bin/python"; return; fi
+  done
+  return 1
+}
+
+as_admin() {   # a command as root: sudo with a terminal to type into, else the desktop's own password dialog
+  if [ -t 0 ]; then
+    sudo "$@"
+  elif [ "$OS" = Darwin ]; then
+    osascript -e "do shell script \"$*\" with administrator privileges" >/dev/null
+  elif command -v pkexec >/dev/null; then
+    pkexec "$@"
+  else
+    die "needs admin rights for: $*. Run it in a terminal, for sudo's prompt"
+  fi
+}
+
+# The network, per system: adapters ("<device> <name>" a line, those with a link first), has_link, subnet_address
+# (its address on 192.168.50.x/24 other than the unit's, if any), others_on_subnet, set_address, route_to and ping1.
+if [ "$OS" = Darwin ]; then
+  NO_ADAPTER="No Ethernet adapter on this Mac yet: plug in the USB(-C) Ethernet adapter."
+  adapters() {
+    local line name="" dev
+    networksetup -listallhardwareports | while IFS= read -r line; do
+      case "$line" in
+        "Hardware Port: "*) name=${line#Hardware Port: } ;;
+        "Device: "*)
+          dev=${line#Device: }
+          case "$name" in Wi-Fi | Bluetooth* | *Bridge* | Thunderbolt* | iPhone* | iPad*) continue ;; esac
+          ifconfig "$dev" 2>/dev/null | grep -q "media: autoselect" || continue   # attached, and Ethernet
+          if ifconfig "$dev" | grep -q "status: active"; then echo "0 $dev $name"; else echo "1 $dev $name"; fi ;;
+      esac
+    done | sort -s -k1,1 | cut -d' ' -f2-
+  }
+  has_link() { ifconfig "$1" 2>/dev/null | grep -q "status: active"; }
+  subnet_address() {
+    ifconfig "$1" | awk -v unit="$UNIT" '$1 == "inet" && $2 ~ /^192\.168\.50\./ && $2 != unit && $4 == "0xffffff00" { print $2; exit }'
+  }
+  others_on_subnet() { ifconfig | awk -v me="$1:" '/^[a-z]/ { i = $1 } $1 == "inet" && $2 ~ /^192\.168\.50\./ && i != me { print i, $2 }'; }
+  set_address() { as_admin ipconfig set "$1" MANUAL "$ME" "$MASK"; }
+  route_to() { route -n get "$1" 2>/dev/null | awk '$1 == "interface:" { print $2 }'; }
+  ping1() { ping -c 1 -t 1 -q "$1" >/dev/null 2>&1; }   # -t: the Mac's timeout
+  BLOCKED="macOS blocks the connection: allow your terminal app under System Settings > Privacy & Security > Local Network."
+  MANUAL_HINT="System Settings > Network > <adapter> > Details > TCP/IP: Manually, $ME, $MASK, no router"
+else
+  NO_ADAPTER="No wired Ethernet interface yet: plug in the Ethernet adapter, or use the computer's own port."
+  adapters() {   # real Ethernet devices (not wireless, a bridge, a tunnel or lo), named by their driver
+    local d dev drv
+    for d in /sys/class/net/*; do
+      dev=${d##*/}
+      [ -e "$d/device" ] && [ "$(cat "$d/type" 2>/dev/null)" = 1 ] || continue
+      [ -d "$d/wireless" ] || [ -d "$d/phy80211" ] && continue
+      drv=$(basename "$(readlink -f "$d/device/driver" 2>/dev/null)" 2>/dev/null || true)
+      if [ "$(cat "$d/carrier" 2>/dev/null)" = 1 ]; then echo "0 $dev ${drv:-ethernet}"; else echo "1 $dev ${drv:-ethernet}"; fi
+    done | sort -s -k1,1 | cut -d' ' -f2-
+  }
+  has_link() { [ "$(cat "/sys/class/net/$1/carrier" 2>/dev/null)" = 1 ]; }
+  subnet_address() {
+    ip -o -4 addr show dev "$1" | awk -v unit="$UNIT" '{ split($4, a, "/"); if (a[1] ~ /^192\.168\.50\./ && a[1] != unit && a[2] == 24) { print a[1]; exit } }'
+  }
+  others_on_subnet() { ip -o -4 addr show | awk -v me="$1" '$2 != me && $4 ~ /^192\.168\.50\./ { print $2, $4 }'; }
+  set_address() { as_admin ip addr add "$ME/$PREFIX" dev "$1"; }
+  route_to() { ip route get "$1" 2>/dev/null | awk '{ for (i = 1; i < NF; i++) if ($i == "dev") { print $(i + 1); exit } }'; }
+  ping1() { ping -c 1 -W 1 -q "$1" >/dev/null 2>&1; }   # -W: Linux's timeout (its -t is the TTL)
+  BLOCKED="The connection is refused on the way (a firewall on this computer?)."
+  MANUAL_HINT="nmcli con add type ethernet ifname <device> con-name mmi-stage ipv4.method manual ipv4.addresses $ME/$PREFIX, then nmcli con up mmi-stage"
+fi
+
+PY=$(mmi_python) || die "no mmi conda env: conda env create -f env.yml, in mmi/"
+
+# The target, from the app's own address argument (host:port, host or port, as `python -m mmi_app` takes it).
+addr="" skip=""
+for a in "$@"; do
+  if [ -n "$skip" ]; then skip=""; continue; fi
+  case "$a" in --config) skip=1 ;; -*) ;; *) [ -n "$addr" ] || addr=$a ;; esac
+done
+host=$UNIT port=$UNIT_PORT
+case "$addr" in
+  "") ;;
+  *:*) host=${addr%:*} port=${addr##*:}; [ -n "$host" ] || host=$UNIT ;;
+  *[!0-9]*) host=$addr ;;
+  *) port=$addr ;;
+esac
+
+if [ "$host" = "$UNIT" ]; then
+  # ---- 1. the adapter, and its link
+  while :; do
+    dev="" name=""
+    read -r dev name < <(adapters | head -1) || true
+    if [ -z "$dev" ]; then
+      say "$NO_ADAPTER"
+    elif has_link "$dev"; then
+      break
+    else
+      if [ "$OS" = Linux ] && ! ip link show "$dev" | grep -q "[<,]UP[,>]"; then   # down by choice: no carrier to see
+        echo "Bringing $dev up (admin rights: your password)"
+        as_admin ip link set "$dev" up
+      fi
+      say "Waiting for a link on $dev ($name): the cable from it into the unit's J19 (J19's LED lights), the unit on (SW9)."
+    fi
+    sleep 1
+  done
+  echo "Ethernet: $dev ($name), link up"
+
+  # ---- 2. its address (a Mac re-applies its temporary one when the link comes back: give it a moment)
+  addr=""
+  for _ in 1 2 3 4 5 6; do addr=$(subnet_address "$dev"); [ -n "$addr" ] && break; sleep 0.5; done
+  if [ -n "$addr" ]; then
+    echo "Address: $addr/24 already"
+  else
+    others=$(others_on_subnet "$dev")
+    [ -z "$others" ] || die "another interface is on 192.168.50.x too ($others): the unit's subnet would be ambiguous"
+    echo "Giving $dev the address $ME/24 (admin rights: your password)"
+    set_address "$dev" || die "no admin rights given, so $dev has no address"
+    for _ in $(seq 50); do [ -n "$(subnet_address "$dev")" ] && break; sleep 0.2; done
+    [ -n "$(subnet_address "$dev")" ] || die "$dev didn't take $ME. Set it by hand: $MANUAL_HINT"
+  fi
+  via=$(route_to "$UNIT")
+  [ "$via" = "$dev" ] || die "the route to $UNIT goes through ${via:-nothing}, not $dev"
+
+  # ---- 3. the unit
+  until ping1 "$UNIT"; do
+    say "Waiting for the unit at $UNIT: on, with D9 green? Running the stage firmware (./write_firmware)?"
+  done
+  REFUSED="The unit answers ping, but nothing listens on port $port: is it running the stage firmware (./write_firmware)?"
+else
+  echo "Not the unit: $host:$port (the test server?), so no Ethernet set-up"
+  REFUSED="Nothing listens on $host:$port yet: start the test server (python -m mmi_client.test_server, in the mmi env)."
+fi
+probe() {   # a session's first line (!hello), then bye; or why there's none
+  "$PY" -P - "$host" "$port" <<'EOF'
+import errno, socket, sys
+
+try:
+    s = socket.create_connection((sys.argv[1], int(sys.argv[2])), timeout=3)
+except OSError as e:
+    sys.exit({errno.EHOSTUNREACH: "blocked", errno.ENETUNREACH: "blocked", errno.ECONNREFUSED: "refused"}.get(
+        e.errno, f"error {e}"))
+s.settimeout(3)
+data = b""
+try:
+    while b"\n" not in data:
+        chunk = s.recv(4096)
+        if not chunk:
+            break
+        data += chunk
+except OSError:
+    pass
+try:
+    s.sendall(b"bye\n")
+finally:
+    s.close()
+print(data.split(b"\n")[0].decode("ascii", "replace").strip())
+EOF
+}
+while ! hello=$(probe 2>&1); do
+  case "$hello" in
+    blocked) say "$BLOCKED" ;;
+    refused) say "$REFUSED" ;;
+    *) say "Can't connect to $host:$port: $hello" ;;
+  esac
+  sleep 2
+done
+case "$hello" in
+  "!hello "*) echo "The unit: ${hello#!hello }" ;;
+  *) die "the unit's first line wasn't !hello: $hello" ;;
+esac
+
+# ---- the gamepad, as the app will see it (it takes one whenever it's plugged in; the keyboard drives without one)
+"$PY" -P - <<'EOF' 2>/dev/null || echo "Gamepad: couldn't look (pygame); the app looks for itself"
+from mmi_app.pad import SdlGamepad
+from mmi_app.profiles import pad_ids, pad_profile
+
+pad = SdlGamepad(accept=pad_ids())
+try:
+    s = pad.poll()
+    print(f"Gamepad: the {pad_profile(s.ids).name}" if s.connected else
+          "Gamepad: none of the app's (the 8BitDo, the DualSense), so the keyboard drives until one's plugged in")
+finally:
+    pad.close()
+EOF
+
+# ---- the app: one at a time (two would take the unit's session from each other in turn)
+if pid=$(pgrep -f "[-]m mmi_app" | head -1) && [ -n "$pid" ]; then
+  echo "The app is open already (pid $pid): it connects by itself."
+  exit 0
+fi
+echo "Starting the app: python -m mmi_app $*"
+exec "$PY" -P -m mmi_app "$@"   # -P: not the current directory first, so no folder there can hide the package

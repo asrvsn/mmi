@@ -1,0 +1,87 @@
+(footprint "Peltier_20x20_LeadsInner_Hand"
+	(version 20241229)
+	(generator "mmi_lid_lib")
+	(layer "F.Cu")
+	(descr "Peltier module 20 x 20 mm (TES1-4902) on an exposed copper pad; both leads leave one edge (towards the slot) at its corners, onto pads just past it: pad 1 at -x, pad 2 at +x. Fit all six the same way up, so the same lead colour lands on pad 1 everywhere Hand-soldered variant (lid_2, 2026-10-08): no stencil paste on the hand-soldered pads, which keep other copper 0.45 mm off (so traces near them stay under a wide mask dam). The module pad's mask opening sits 0.15 mm inside its copper: traces beside it keep a >= 0.2 mm mask dam after the fab's own expansion; the pad stays bare for thermal paste.")
+	(attr smd)
+	(property "Reference" "REF**"
+		(at 0.000 -11.600 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(property "Value" "Peltier_20x20_LeadsInner"
+		(at -13.600 11.150 0)
+		(layer "F.Fab")
+		(effects
+			(font (size 1.0 1.0) (thickness 0.15))
+		)
+	)
+	(pad "" smd rect
+		(at 0.000 -0.500)
+		(size 20.4 19.4)
+		(layers "F.Cu" "F.Mask")
+		(solder_mask_margin -0.15)
+	)
+	(pad "1" smd rect
+		(at -8.500 11.150)
+		(size 2.4 1.6)
+		(layers "F.Cu" "F.Mask")
+		(clearance 0.45)
+	)
+	(pad "2" smd rect
+		(at 8.500 11.150)
+		(size 2.4 1.6)
+		(layers "F.Cu" "F.Mask")
+		(clearance 0.45)
+	)
+	(fp_rect
+		(start -10.400 -10.400)
+		(end 10.400 10.100)
+		(stroke (width 0.12) (type solid))
+		(fill no)
+		(layer "F.SilkS")
+	)
+	(fp_rect
+		(start -10.000 -10.000)
+		(end 10.000 10.000)
+		(stroke (width 0.1) (type solid))
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_poly
+		(pts
+			(xy -10.7 -10.7)
+			(xy 10.7 -10.7)
+			(xy 10.7 12.25)
+			(xy 6.0 12.25)
+			(xy 6.0 10.7)
+			(xy -6.0 10.7)
+			(xy -6.0 12.25)
+			(xy -10.7 12.25)
+		)
+		(stroke (width 0.05) (type solid))
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(fp_text user "1"
+		(at -11.600 11.150 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 0.7 0.7) (thickness 0.12))
+		)
+	)
+	(fp_text user "2"
+		(at 11.600 11.150 0)
+		(layer "F.SilkS")
+		(effects
+			(font (size 0.7 0.7) (thickness 0.12))
+		)
+	)
+	(model "${KIPRJMOD}/../../lib/3d/peltier_20x20x4.step"
+		(offset (xyz 0 0 0))
+		(scale (xyz 1 1 1))
+		(rotate (xyz 0 0 0))
+	)
+)
